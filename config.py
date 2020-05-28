@@ -1,0 +1,1 @@
+uri = 'mysql+pymysql://root:@localhost/p5'

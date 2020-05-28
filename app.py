@@ -1,10 +1,9 @@
-from models import data
+from models import data, stores, categories
+from config import uri
 from sqlalchemy import *
 
-engine = create_engine('mysql+pymysql://root:@localhost/p5')
+engine = create_engine(uri)
 
-if not engine.dialect.has_table(engine, 'data'):
-    data.Base.metadata.create_all(engine)
-
-else:
-    pass
+data.Base.metadata.create_all(engine)
+categories.Base.metadata.create_all(engine)
+stores.Base.metadata.create_all(engine)
