@@ -10,6 +10,16 @@ def collect(request):
 
     return products
 
+def clean_for_data(list):
 
-request = 'https://fr.openfoodfacts.org/cgi/search.pl?action=process&page_size=5&json=true'
-products = collect(request)
+    table = []
+    for pos, element in enumerate(list):
+        table.append((list[pos]["product_name"], list[pos]["ingredients_text_fr"], list[pos]["labels"], list[pos]["nutriscore_grade"]))
+    return table   
+
+def clean_for_categories(list):
+
+    table = []
+    for pos, element in enumerate(list):
+        table.append((list[pos]["product_name"], list[pos]["ingredients_text_fr"], list[pos]["labels"], list[pos]["nutriscore_grade"]))
+    return table  

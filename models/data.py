@@ -8,7 +8,6 @@ class Data(Base):
 
     id = Column(Integer, primary_key=True) 
     name = Column(String(24), nullable=False)
-    description = Column(String(300))
     ingredients = Column(String(300))
     brand = Column(String(24))  
     labels = Column(String(50))
