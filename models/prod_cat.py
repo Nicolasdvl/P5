@@ -3,8 +3,8 @@ from sqlalchemy import Column, Integer, String
 
 Base = declarative_base()
 
-class Stores (Base):
-    __tablename__ = "stores"
+class ProdCat(Base):
+    __tablename__ = "product_category"
 
-    id = Column(Integer, primary_key =True)
-    name = Column(String(24))
+    id_data = Column(Integer, )
+    id_cat = Column(Integer, )

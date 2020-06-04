@@ -1,25 +1,17 @@
 import requests
 import json
+class Collect ():
+    def __init__(self):
 
-def collect(request):
+        self.request = 'https://fr.openfoodfacts.org/cgi/search.pl?action=process&page_size=5&json=true'
+        
     
-    r = requests.get(request)
-    products = []
-    data = json.loads(r.text)
-    products = data['products']
+    def collect(request):
+        
+        products = []
+        r = requests.get(request)
+        data = json.loads(r.text)
+        products = data['products']
 
-    return products
+        return products
 
-def clean_for_data(list):
-
-    table = []
-    for pos, element in enumerate(list):
-        table.append((list[pos]["product_name"], list[pos]["ingredients_text_fr"], list[pos]["labels"], list[pos]["nutriscore_grade"]))
-    return table   
-
-def clean_for_categories(list):
-
-    table = []
-    for pos, element in enumerate(list):
-        table.append((list[pos]["product_name"], list[pos]["ingredients_text_fr"], list[pos]["labels"], list[pos]["nutriscore_grade"]))
-    return table  

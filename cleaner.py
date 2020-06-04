@@ -1,11 +1,11 @@
-def clean_for_data(list):
+def cleaner_prod(list):
 
     table = []
     for pos, element in enumerate(list):
         table.append((list[pos]["code"], list[pos]["product_name"], list[pos]["ingredients_text_fr"], list[pos]["labels"], list[pos]["nutriscore_grade"]))
     return table   
 
-def clean_for_cat(list):
+def cleaner_cat(list):
 
     table = []
     for pos, element in enumerate(list):
@@ -13,7 +13,7 @@ def clean_for_cat(list):
             table.append(list[pos]["categories_tags"][pos_2])
     return table 
 
-def clean_for_store(list):
+def cleaner_store(list):
 
     table =[]
     for pos, element in enumerate(list):

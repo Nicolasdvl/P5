@@ -3,8 +3,8 @@ from sqlalchemy import Column, Integer, String
 
 Base = declarative_base()
 
-class Asso_data_cat(Base):
-    __tablename__ = "asso_data_cat"
+class Store (Base):
+    __tablename__ = "store"
 
-    id_data = Column(Integer, )
-    id_cat = Column(Integer, )
+    id = Column(Integer, primary_key =True)
+    name = Column(String(24))
