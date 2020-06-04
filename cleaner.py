@@ -1,22 +1,24 @@
-def cleaner_prod(list):
+class Cleaner():
 
-    table = []
-    for pos, element in enumerate(list):
-        table.append((list[pos]["code"], list[pos]["product_name"], list[pos]["ingredients_text_fr"], list[pos]["labels"], list[pos]["nutriscore_grade"]))
-    return table   
+    def cleaner_prod(data):
 
-def cleaner_cat(list):
+        table = []
+        for pos, element in enumerate(data):
+            table.append((data[pos]["code"], data[pos]["product_name"], data[pos]["ingredients_text_fr"], data[pos]["labels"], data[pos]["nutriscore_grade"]))
+        return table   
 
-    table = []
-    for pos, element in enumerate(list):
-        for pos_2, element_2 in enumerate(list[pos]["categories_tags"]):
-            table.append(list[pos]["categories_tags"][pos_2])
-    return table 
+    def cleaner_cat(data):
 
-def cleaner_store(list):
+        table = []
+        for pos, element in enumerate(data):
+            for pos_2, element_2 in enumerate(data[pos]["categories_tags"]):
+                table.append(data[pos]["categories_tags"][pos_2])
+        return table 
 
-    table =[]
-    for pos, element in enumerate(list):
-        for pos_2, element_2 in enumerate(list[pos]["stores_tags"]):
-            table.append(list[pos]["stores_tags"][pos_2])
-    return table
+    def cleaner_store(data):
+
+        table =[]
+        for pos, element in enumerate(data):
+            for pos_2, element_2 in enumerate(data[pos]["stores_tags"]):
+                table.append(data[pos]["stores_tags"][pos_2])
+        return table

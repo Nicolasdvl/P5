@@ -1,8 +1,8 @@
 from models import product, store, category
-from config import uri
+from config import uri, request
 from sqlalchemy import *
 from collect import Collect
-from cleaner import cleaner_prod, cleaner_cat, cleaner_store
+from cleaner import Cleaner
 
 engine = create_engine(uri)
 
@@ -11,10 +11,10 @@ category.Base.metadata.create_all(engine)
 store.Base.metadata.create_all(engine)
 
 
-request = Collect()
-products = Collect.collect(request.request)
-table_data = cleaner_prod(products)
-table_cat = cleaner_cat(products)
-table_store = cleaner_store(products)
+
+products = Collect.collect(request)
+table_data = Cleaner.cleaner_prod(products)
+table_cat = Cleaner.cleaner_cat(products)
+table_store = Cleaner.cleaner_store(products)
 
 print(table_data)

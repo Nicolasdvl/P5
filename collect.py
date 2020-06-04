@@ -1,10 +1,6 @@
 import requests
 import json
-class Collect ():
-    def __init__(self):
-
-        self.request = 'https://fr.openfoodfacts.org/cgi/search.pl?action=process&page_size=5&json=true'
-        
+class Collect ():     
     
     def collect(request):
         
