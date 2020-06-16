@@ -6,5 +6,5 @@ Base = declarative_base()
 class ProdCat(Base):
     __tablename__ = "product_category"
 
-    id_data = Column(Integer, )
+    id_data = Column(Integer, ForeignKey )
     id_cat = Column(Integer, )

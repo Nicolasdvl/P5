@@ -1,10 +1,10 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, BigInteger
 
 Base = declarative_base()
 
 class Store (Base):
     __tablename__ = "store"
 
-    id = Column(Integer, primary_key =True)
-    name = Column(String(24))
+    code = Column(BigInteger, primary_key =True)
+    name = Column(String(60), nullable =False, unique= True)
