@@ -3,7 +3,7 @@ from models.product import Product
 from models.category import Category
 from models.store import Store
 
-class Install():
+class Installer():
 
     def install(data, table_name, engine):
         Session = sessionmaker(bind=engine)
