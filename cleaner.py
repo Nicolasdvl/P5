@@ -1,4 +1,4 @@
-class Cleaner():
+class Cleaner:
 
     def cleaner_prod(data):
 
