@@ -1,6 +1,5 @@
-from models.product import Product
+from models import product, category, store
 from models.category import Category
-from models.store import Store
 from config import uri
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

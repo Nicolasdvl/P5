@@ -72,6 +72,7 @@ class Menu:
                 else :
                     #self.menu_state_4(App, entry)
                     print('categorie ok')
+                    break
 
             else :
                 print('Commande incorrecte')
