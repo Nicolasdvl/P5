@@ -1,5 +1,6 @@
 from models import product, category, store
 from models.category import Category
+from models import Base
 from config import uri
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -15,9 +16,7 @@ class App:
 
         print("creating tables...")
         engine = create_engine(uri)
-        product.Base.metadata.create_all(engine)
-        category.Base.metadata.create_all(engine)
-        store.Base.metadata.create_all(engine)
+        Base.metadata.create_all(engine)
         print("tables created")
     
         ''' collect data from api and prepare them to insert into tables '''
@@ -25,17 +24,13 @@ class App:
         print("uploading data from api...")
         this = Collector()
         products = Collector.collect(this)
-        table_prod = Cleaner.cleaner_prod(products)
-        table_cat = Cleaner.cleaner_cat(products)
-        table_store = Cleaner.cleaner_store(products)
+        table = Cleaner.cleaner(products)
         print("upload successful")
 
         ''' insert data in tables '''
 
         print("adding data to tables...")
-        Installer.install(table_prod, 'product', engine)
-        Installer.install(table_cat, 'category', engine)
-        Installer.install(table_store, 'store', engine)
+        Installer.install(table, engine)
         print("database install with success")
 
     def view_cat():

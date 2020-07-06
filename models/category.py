@@ -1,9 +1,21 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, BigInteger
+from sqlalchemy import Table, ForeignKey, Column, Integer, String, BigInteger
+from sqlalchemy.orm import relationship
+from models import Base
+from models import product
 
-Base = declarative_base()
+
+prod_cat = Table('prod_cat', Base.metadata,
+    Column('prod_id', BigInteger, ForeignKey('product.code')),
+    Column('cat_id', Integer, ForeignKey('category.code'))
+    )
+
 class Category (Base):
     __tablename__ = "category"
 
-    code = Column(BigInteger, primary_key =True)
+    code = Column(Integer, autoincrement=True, primary_key =True)
     name = Column(String(60), nullable =False, unique =True)
+    products = relationship(
+        "Product",
+        secondary=prod_cat,
+        back_populates="categories"
+    )

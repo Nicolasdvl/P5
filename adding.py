@@ -2,36 +2,89 @@ from sqlalchemy.orm import sessionmaker
 from models.product import Product
 from models.category import Category
 from models.store import Store
+from models import product, category, store
 
+''' 
+    data format :
+        x : {
+            'code' :
+            'product' : {
+                'name' : 
+                'ingredients' :
+                'brands' :
+                'labels' :
+                'score' :
+            }
+            'stores' : {
+                'x' :
+                'y' :
+            }
+            'categories' : {
+                'x' :
+                'y' :
+            }
+        }  
+        y : {
+            .
+            .
+            .
+'''
 class Installer():
 
-    def install(data, table_name, engine):
+    def install(data, engine):
+
         Session = sessionmaker(bind=engine)
         session = Session()
-
-        if table_name == 'product' :
-            for pos, element in enumerate(data):
-                clue = str(data[pos][0])
+       
+        
+        for key, element in data.items():
+            ''' checking if element exist '''
+            if element.get('code') != None:
+                ''' checking if element is already in table '''
+                clue = element.get('code')
                 suspect = session.query(Product).filter(Product.code == clue).one_or_none()
-                if suspect is None :
-                    add = Product(code=data[pos][0], name=data[pos][1], ingredients=data[pos][2], brand=data[pos][3], labels=data[pos][4], score=data[pos][5])
-                    session.add(add)
+                if suspect is None : 
+                    ''' insert data in table '''
+                    code = clue
+                    product = element.get('product')
+                    add_prod = Product(code=code, name=product.get('name'), ingredients=product.get('ingredients'), brand=product.get('brands'), labels=product.get('labels'), score=product.get('score') )
+                    session.add(add_prod)
                     session.commit()
 
-        elif table_name == 'category' :
-            for pos, element in enumerate(data):
-                clue = str(data[pos])
-                suspect = session.query(Category).filter(Category.name == clue).one_or_none()
-                if suspect is None :
-                    add = Category(name=data[pos])
-                    session.add(add)
-                    session.commit()
+                stores = element.get('stores')
+                for key_2, element_2 in stores.items():
+                    ''' checking if element exist '''
+                    if element_2 != None:
+                        ''' checking if element is already in table '''
+                        clue = element_2
+                        suspect = session.query(Store).filter(Store.name == clue).one_or_none()   
+                        if suspect is None :
+                            ''' insert data in table '''
+                            name = clue
+                            add_store = Store(name=name)
+                            session.add(add_store)
+                            session.commit()
+                        ''' insert association between a product and a store'''
+                        store = session.query(Store).filter(Store.name == element_2).first()
+                        prod = session.query(Product).filter(Product.code == element.get('code')).first()
+                        store.products.append(prod)
+                        session.commit()
 
-        elif table_name == 'store' :
-            for pos, element in enumerate(data):
-                clue = str(data[pos])
-                suspect = session.query(Store).filter(Store.name == clue).one_or_none()
-                if suspect is None :
-                    add = Store(name=data[pos])
-                    session.add(add)
-                    session.commit()
+                categories = element.get('categories')
+                for key_2, element_2 in categories.items():
+                    ''' checking if element exist '''
+                    if element_2 != None:
+                        ''' checking if element is already in table '''
+                        clue = element_2
+                        suspect = session.query(Category).filter(Category.name == clue).one_or_none()   
+                        if suspect is None :
+                            ''' insert data in table '''
+                            name = clue
+                            add = Category(name=name)
+                            session.add(add)
+                            session.commit()
+                        ''' insert association between a product and a category'''
+                        cat = session.query(Category).filter(Category.name == element_2).first()
+                        prod = session.query(Product).filter(Product.code == element.get('code')).first()
+                        cat.products.append(prod)
+                        session.commit()

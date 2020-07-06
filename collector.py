@@ -16,14 +16,18 @@ class Collector :
 
     def collect(self):
 
-        ''' Collect results from api request in list '''
-        
+        ''' Initialise api request '''
         products = []
         r = requests.get(self.request)
 
-        ''' penser à check le status de la request (error 400 etc)'''
+        ''' Checking request status '''
+        if r.status_code == requests.codes.ok :
+            print ('request ok')
+        else : 
+            r.raise_for_status()
+
+        ''' Adding result to list '''
         data = r.json()
-        products = data['products']
+        products = data.get('products')
 
         return products
-

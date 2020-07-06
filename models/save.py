@@ -1,7 +1,6 @@
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, BigInteger
+from models import Base
 
-Base = declarative_base()
 
 class Save (Base):
     __tablename__ = "save"
