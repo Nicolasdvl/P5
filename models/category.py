@@ -13,7 +13,7 @@ class Category (Base):
     __tablename__ = "category"
 
     code = Column(Integer, autoincrement=True, primary_key =True)
-    name = Column(String(60), nullable =False, unique =True)
+    name = Column(String(120), nullable =False, unique =True)
     products = relationship(
         "Product",
         secondary=prod_cat,

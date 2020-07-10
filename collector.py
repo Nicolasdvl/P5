@@ -11,22 +11,22 @@ class Collector :
         else :
             self.size = str(size)
         
-        ''' penser à ajouter nb de page (page=) / penser params request dans dictonaire '''
+        # penser à ajouter nb de page (page=) / penser params request dans dictonaire 
         self.request = f'https://{self.location}.openfoodfacts.org/cgi/search.pl?action=process&page_size={self.size}&json=true'  
 
     def collect(self):
 
-        ''' Initialise api request '''
+        # Initialise api request 
         products = []
         r = requests.get(self.request)
 
-        ''' Checking request status '''
+        # Checking request status 
         if r.status_code == requests.codes.ok :
             print ('request ok')
         else : 
             r.raise_for_status()
 
-        ''' Adding result to list '''
+        # Adding result to list
         data = r.json()
         products = data.get('products')
 

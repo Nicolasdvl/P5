@@ -38,13 +38,13 @@ class Installer():
        
         
         for key, element in data.items():
-            ''' checking if element exist '''
+            # checking if element exist
             if element.get('code') != None:
-                ''' checking if element is already in table '''
+                # checking if element is already in table 
                 clue = element.get('code')
                 suspect = session.query(Product).filter(Product.code == clue).one_or_none()
                 if suspect is None : 
-                    ''' insert data in table '''
+                    # insert data in table
                     code = clue
                     product = element.get('product')
                     add_prod = Product(code=code, name=product.get('name'), ingredients=product.get('ingredients'), brand=product.get('brands'), labels=product.get('labels'), score=product.get('score') )
@@ -53,18 +53,17 @@ class Installer():
 
                 stores = element.get('stores')
                 for key_2, element_2 in stores.items():
-                    ''' checking if element exist '''
+                    # checking if element exist
                     if element_2 != None:
-                        ''' checking if element is already in table '''
+                        # checking if element is already in table
                         clue = element_2
                         suspect = session.query(Store).filter(Store.name == clue).one_or_none()   
                         if suspect is None :
-                            ''' insert data in table '''
-                            name = clue
-                            add_store = Store(name=name)
+                        # insert data in table
+                            add_store = Store(name=clue)
                             session.add(add_store)
                             session.commit()
-                        ''' insert association between a product and a store'''
+                        # insert association between a product and a store
                         store = session.query(Store).filter(Store.name == element_2).first()
                         prod = session.query(Product).filter(Product.code == element.get('code')).first()
                         store.products.append(prod)
@@ -72,19 +71,20 @@ class Installer():
 
                 categories = element.get('categories')
                 for key_2, element_2 in categories.items():
-                    ''' checking if element exist '''
+                    # checking if element exist
                     if element_2 != None:
-                        ''' checking if element is already in table '''
+                        # checking if element is already in table
                         clue = element_2
                         suspect = session.query(Category).filter(Category.name == clue).one_or_none()   
                         if suspect is None :
-                            ''' insert data in table '''
-                            name = clue
-                            add = Category(name=name)
+                            # insert data in table
+                            add = Category(name=clue)
                             session.add(add)
                             session.commit()
-                        ''' insert association between a product and a category'''
-                        cat = session.query(Category).filter(Category.name == element_2).first()
+                        # insert association between a product and a category
+                        cat = session.query(Category).filter(Category.name == clue).first()
                         prod = session.query(Product).filter(Product.code == element.get('code')).first()
+                        if cat is None:
+                            print(cat)
                         cat.products.append(prod)
                         session.commit()

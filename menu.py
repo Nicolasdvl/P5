@@ -15,7 +15,8 @@ class Menu:
         self.cmd_state_4 = {}
         
     def menu_state_1(self, App):
-
+    
+    # allow db installation or programme use
         while True :
 
             for key, element in self.cmd_state_1.items() :
@@ -36,7 +37,8 @@ class Menu:
                 print('Commande non reconnu')
 
     def menu_state_2(self, App):
-
+    
+    # allow substitutes display or substitutes search 
         while True :
 
             for key, element in self.cmd_state_2.items() :
@@ -58,6 +60,7 @@ class Menu:
 
     def menu_state_3(self, App):
 
+    # allow categories selection
         while True :
 
             self.cmd_state_3 = App.view_cat()
@@ -70,16 +73,28 @@ class Menu:
                 if entry == '0':
                     break
                 else :
-                    #self.menu_state_4(App, entry)
-                    print('categorie ok')
-                    break
+                    self.menu_state_4(App, entry)
 
             else :
                 print('Commande incorrecte')
             
     def menu_state_4(self, App, entry):
-
+    
+    # allow products selection 
         while True :
 
             self.cmd_state_4 = App.view_prod(entry)
+            for key, element in self.cmd_state_4.items() :
+                print (f'{key} : {element}')
+
+            entry = input('Entrer un chiffre pour sélectionner le produit correspondant : ')
+
+            if entry in self.cmd_state_4 :
+                if entry == '0':
+                    break
+                else :
+                    print ('substitut en recherche')
+                    break
+            else :
+                print('Commande incorrecte')
     

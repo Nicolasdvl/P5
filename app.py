@@ -1,12 +1,13 @@
-from models import product, category, store
+from models import product, category, store, save
 from models.category import Category
+from models.product import Product
 from models import Base
 from config import uri
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from collector import Collector
 from cleaner import Cleaner
-from adding import Installer
+from installer import Installer
 
 class App:
 
@@ -45,16 +46,18 @@ class App:
         cat['0'] = 'retour'    
         return cat
     
-    def view_prod(cat):
+    def view_prod(entry):
         engine = create_engine(uri)
         Session = sessionmaker(bind=engine)
         session = Session()
+        i = 1
         prod = {}
-        '''  
-            1 /     Mettre les tables associatives en place
-            2 /     Recherche dans la table associative avec filter() les codes des produits
-            3 /     Recherche dans la table product avec filtre() les produits
-        '''
+        for row in session.query(Product).select_from(Category)\
+            .join(Category.products)\
+            .filter(Category.code == entry):
+            prod[str(i)] = row.name
+            i += 1
+        prod['0'] = 'retour'
         return prod
 
     def view_save():
@@ -62,7 +65,8 @@ class App:
 
         pass
 
-    def search_alt(prod):
-        ''' code pour trouver un substitut et afficher ses infos '''
+    def search_alt(entry):
+        relevance = 0
+
 
         pass
