@@ -26,7 +26,7 @@ class Menu:
             for key, element in self.cmd_state_1.items() :
                 print (f'{key} : {element}')
 
-            entry = input('Entrer un chiffre pour sélectionner l\'option correspondante : ')
+            entry = input('\nEntrer un chiffre pour sélectionner l\'option correspondante : ')
 
             if entry == '1':
                 App.create_db()
@@ -38,23 +38,25 @@ class Menu:
                 break
             
             else:
-                print('Commande non reconnu')
+                print('\nCommande non reconnu')
 
     def menu_state_2(self, App: object):
     
     # allow substitutes display or substitutes search 
         while True :
 
+            print('-'*50)
             for key, element in self.cmd_state_2.items() :
                 print (f'{key} : {element}')
 
-            entry = input('Entrer un chiffre pour sélectionner l\'option correspondante : ')
+            entry = input('\nEntrer un chiffre pour sélectionner l\'option correspondante : ')
 
             if entry == '1' :
                 self.menu_state_3(App)
                 
             elif entry == '2' :
                 save = App.view_save()
+                print('-'*50+'\nSubstitut(s) enregistré(s) :\n') 
                 for x in save:
                     print(x)
 
@@ -62,7 +64,7 @@ class Menu:
                 break 
 
             else :
-                print('Commande incorrecte')
+                print('\nCommande incorrecte')
 
     def menu_state_3(self, App: object):
 
@@ -75,10 +77,11 @@ class Menu:
             else :
                 self.cmd_state_3 = App.view_cat()
                 rand_cat = random.sample(list(self.cmd_state_3), 10)
+                print('-'*50)
                 for x in rand_cat :
                     print (f'{x} : {self.cmd_state_3[x]}')
 
-                entry = input('Entrer un chiffre pour sélectionner la catégorie correspondante : ')
+                entry = input('\nEntrer un chiffre pour sélectionner la catégorie correspondante : ')
                 
                 if entry in self.cmd_state_3 :
                     if entry == '0':
@@ -87,7 +90,7 @@ class Menu:
                         self.menu_state_4(App, entry)
 
                 else :
-                    print('Commande incorrecte')
+                    print('\nCommande incorrecte')
             
     def menu_state_4(self, App: object, entry: str):
     
@@ -99,10 +102,11 @@ class Menu:
 
             else :
                 self.cmd_state_4 = App.view_prod(entry)
+                print('-'*50)
                 for key, element in self.cmd_state_4.items() :
                     print (f'{key} : {element}')
 
-                entry = input('Entrer un chiffre pour sélectionner le produit correspondant : ')
+                entry = input('\nEntrer un chiffre pour sélectionner le produit correspondant : ')
 
                 if entry in self.cmd_state_4 :
                     if entry == '0':
@@ -112,7 +116,7 @@ class Menu:
                         
                         
                 else :
-                    print('Commande incorrecte')
+                    print('\nCommande incorrecte')
 
     def menu_state_5(self, App: object, entry: str) :
         while True :
@@ -120,8 +124,9 @@ class Menu:
             prod = self.cmd_state_4.get(entry)
             alt = App.search_alt(prod)
             sub = App.relevance(alt)
-            print(f'Substitut trouvé pour le produit {prod} : {sub}')
-            entry = input(f'Voulez vous enregistrer le substitut dans votre liste ? (y/n)')
+            print('-'*50)
+            print(f'\nSubstitut trouvé pour le produit {prod} : {sub}')
+            entry = input('\nVoulez vous enregistrer le substitut dans votre liste ? (y/n)')
 
             if entry == 'y':
                 feedback = App.insert_sub(sub)
@@ -134,4 +139,4 @@ class Menu:
                 break
 
             else :
-                print('Comande incorrecte')
+                print('\nComande incorrecte')
