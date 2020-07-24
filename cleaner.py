@@ -1,6 +1,6 @@
 class Cleaner:
 
-    def cleaner(data):
+    def cleaner(data: list) -> dict:
 
     # clean and formate api result
         table = {}

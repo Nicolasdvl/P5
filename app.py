@@ -1,6 +1,7 @@
 from models import product, category, store, save
 from models.category import Category
 from models.product import Product
+from models.save import Save
 from models import Base
 from config import uri
 from sqlalchemy import create_engine
@@ -13,14 +14,14 @@ class App:
 
     def create_db() :
 
-        ''' create tables in mysql using models '''
+        # create tables in mysql using models
 
         print("creating tables...")
         engine = create_engine(uri)
         Base.metadata.create_all(engine)
         print("tables created")
     
-        ''' collect data from api and prepare them to insert into tables '''
+        # collect data from api and prepare them to insert into tables
 
         print("uploading data from api...")
         this = Collector()
@@ -28,13 +29,13 @@ class App:
         table = Cleaner.cleaner(products)
         print("upload successful")
 
-        ''' insert data in tables '''
+        # insert data in tables
 
         print("adding data to tables...")
         Installer.install(table, engine)
         print("database install with success")
 
-    def view_cat():
+    def view_cat() -> dict: 
         engine = create_engine(uri)
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -46,7 +47,7 @@ class App:
         cat['0'] = 'retour'    
         return cat
     
-    def view_prod(entry):
+    def view_prod(entry: int) -> dict:
         engine = create_engine(uri)
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -60,13 +61,55 @@ class App:
         prod['0'] = 'retour'
         return prod
 
-    def view_save():
-        ''' code pour chercher les substituts enregistrés et return dict'''
+    def view_save() -> list:
+        save = []
+        engine = create_engine(uri)
+        Session = sessionmaker(bind=engine)
+        session = Session()
+        for row in session.query(Save).all():
+            save.append(row.name)
+        return save
 
-        pass
+    def search_alt(prod_name : str) -> dict:
+        engine = create_engine(uri)
+        Session = sessionmaker(bind=engine)
+        session = Session()
+        alt_prod = {}
+        for row in session.query(Category).select_from(Product)\
+            .join(Product.categories)\
+            .filter(Product.name == prod_name):
+            for row_2 in session.query(Product).select_from(Category)\
+            .join(Category.products)\
+            .filter(Category.name == row.name):
+                alt_prod[row_2.name] = row_2.score
+        del alt_prod[prod_name]
+        return alt_prod
 
-    def search_alt(entry):
-        relevance = 0
+    def relevance(alt: dict) -> str :
+        s = None
+        for k, v in alt.items():
+            if v is None :
+                pass
+            elif s is None:
+                s = v
+                sub = k
+            elif s > v:
+                s = v 
+                sub = k
+        return sub
 
+    def insert_sub(name: str) -> str:
+        engine = create_engine(uri)
+        Session = sessionmaker(bind=engine)
+        session = Session()
+        suspect = session.query(Save).filter(Save.name == name).one_or_none()
+        if suspect is None :
+            add = Save(name=name)
+            session.add(add)
+            session.commit()
+            feedback = 'Substitut enregistré'
 
-        pass
+        else :
+            feedback = 'Substitut déjà présent dans votre liste'
+
+        return feedback    

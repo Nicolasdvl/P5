@@ -31,7 +31,7 @@ from models import product, category, store
 '''
 class Installer():
 
-    def install(data, engine):
+    def install(data: dict, engine: object):
 
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -75,7 +75,8 @@ class Installer():
                     if element_2 != None:
                         # checking if element is already in table
                         clue = element_2
-                        suspect = session.query(Category).filter(Category.name == clue).one_or_none()   
+                        suspect = session.query(Category).filter(Category.name == clue).one_or_none()
+                        print(suspect)   
                         if suspect is None :
                             # insert data in table
                             add = Category(name=clue)
@@ -84,7 +85,5 @@ class Installer():
                         # insert association between a product and a category
                         cat = session.query(Category).filter(Category.name == clue).first()
                         prod = session.query(Product).filter(Product.code == element.get('code')).first()
-                        if cat is None:
-                            print(cat)
                         cat.products.append(prod)
-                        session.commit()
+                        session.commit()  
