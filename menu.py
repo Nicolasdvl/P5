@@ -20,7 +20,10 @@ class Menu:
         
     def menu_state_1(self, App: object):
     
-    # allow db installation or programme use
+    ''' 
+    Selection between installation or use 
+    '''
+    
         while True :
 
             for key, element in self.cmd_state_1.items() :
@@ -42,7 +45,10 @@ class Menu:
 
     def menu_state_2(self, App: object):
     
-    # allow substitutes display or substitutes search 
+    ''' 
+    Selection between product search or substitutes display
+    '''
+    
         while True :
 
             print('-'*50)
@@ -68,7 +74,10 @@ class Menu:
 
     def menu_state_3(self, App: object):
 
-    # allow categories selection
+    ''' 
+    Display 10 random categories and allow selction 
+    '''
+
         while True :
 
             if self.back :
@@ -94,7 +103,10 @@ class Menu:
             
     def menu_state_4(self, App: object, entry: str):
     
-    # allow products selection 
+    ''' 
+    Display product of the category chosen
+    '''
+    
         while True :
 
             if self.back :
@@ -119,6 +131,11 @@ class Menu:
                     print('\nCommande incorrecte')
 
     def menu_state_5(self, App: object, entry: str) :
+    
+    ''' 
+    Display substiute found and allow it saving 
+    '''
+
         while True :
 
             prod = self.cmd_state_4.get(entry)
@@ -139,4 +156,4 @@ class Menu:
                 break
 
             else :
-                print('\nComande incorrecte')
+                print('\nCommande incorrecte')

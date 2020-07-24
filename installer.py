@@ -4,34 +4,13 @@ from models.category import Category
 from models.store import Store
 from models import product, category, store
 
-''' 
-    data format :
-        x : {
-            'code' :
-            'product' : {
-                'name' : 
-                'ingredients' :
-                'brands' :
-                'labels' :
-                'score' :
-            }
-            'stores' : {
-                'x' :
-                'y' :
-            }
-            'categories' : {
-                'x' :
-                'y' :
-            }
-        }  
-        y : {
-            .
-            .
-            .
-'''
 class Installer():
 
     def install(data: dict, engine: object):
+
+    ''' 
+    Insert data in related table and create associations between data
+    '''
 
         Session = sessionmaker(bind=engine)
         session = Session()

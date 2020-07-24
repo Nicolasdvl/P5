@@ -2,7 +2,34 @@ class Cleaner:
 
     def cleaner(data: list) -> dict:
 
-    # clean and formate api result
+    ''' 
+    Clean and formate api request 
+
+    data format :
+        x : {
+            'code' :
+            'product' : {
+                'name' : 
+                'ingredients' :
+                'brands' :
+                'labels' :
+                'score' :
+            }
+            'stores' : {
+                'x' :
+                'y' :
+            }
+            'categories' : {
+                'x' :
+                'y' :
+            }
+        }  
+        y : {
+            .
+            .
+            .
+    '''
+
         table = {}
         for pos, element in enumerate(data):
             prod = data[pos]

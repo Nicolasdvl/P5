@@ -13,6 +13,10 @@ from installer import Installer
 class App:
 
     def create_db() :
+    
+    ''' 
+    Create database, collect data and insert them 
+    '''
 
         # create tables in mysql using models
 
@@ -36,6 +40,11 @@ class App:
         print("database install with success")
 
     def view_cat() -> dict: 
+
+    ''' 
+    Return a dictonnary of all categories present in the table 
+    '''
+
         engine = create_engine(uri)
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -48,6 +57,11 @@ class App:
         return cat
     
     def view_prod(entry: int) -> dict:
+
+    ''' 
+    Return a dictonnary of all products in a category
+    '''
+
         engine = create_engine(uri)
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -62,6 +76,11 @@ class App:
         return prod
 
     def view_save() -> list:
+
+    ''' 
+    Return a list of all substitutes saved
+    '''
+
         save = []
         engine = create_engine(uri)
         Session = sessionmaker(bind=engine)
@@ -86,6 +105,11 @@ class App:
         return alt_prod
 
     def relevance(alt: dict) -> str :
+
+    ''' 
+    Search a relevant product to substitute a product given 
+    '''
+
         s = None
         for k, v in alt.items():
             if v is None :
@@ -99,6 +123,11 @@ class App:
         return sub
 
     def insert_sub(name: str) -> str:
+
+    ''' 
+    Insert a product in the table 'save'
+    '''
+
         engine = create_engine(uri)
         Session = sessionmaker(bind=engine)
         session = Session()
