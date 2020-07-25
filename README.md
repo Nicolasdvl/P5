@@ -18,7 +18,7 @@ The application works with SQL database : https://dev.mysql.com
 
 First you need to create a database :
 
-"CREATE DATABASE nom_db CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';"
+    "CREATE DATABASE nom_db CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';"
 
 Fill the 'config.py' file with a user, a password which have 
 access to your database. Fill also a database name used.
