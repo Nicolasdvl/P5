@@ -16,9 +16,9 @@ class Collector :
 
     def collect(self) -> list:
 
-    ''' 
-    Collect result from api request
-    '''
+        ''' 
+        Collect result from api request
+        '''
 
         products = []
         r = requests.get(self.request)

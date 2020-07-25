@@ -8,9 +8,9 @@ class Installer():
 
     def install(data: dict, engine: object):
 
-    ''' 
-    Insert data in related table and create associations between data
-    '''
+        ''' 
+        Insert data in related table and create associations between data
+        '''
 
         Session = sessionmaker(bind=engine)
         session = Session()

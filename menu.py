@@ -20,9 +20,9 @@ class Menu:
         
     def menu_state_1(self, App: object):
     
-    ''' 
-    Selection between installation or use 
-    '''
+        ''' 
+        Selection between installation or use 
+        '''
     
         while True :
 
@@ -45,9 +45,9 @@ class Menu:
 
     def menu_state_2(self, App: object):
     
-    ''' 
-    Selection between product search or substitutes display
-    '''
+        ''' 
+        Selection between product search or substitutes display
+        '''
     
         while True :
 
@@ -74,9 +74,9 @@ class Menu:
 
     def menu_state_3(self, App: object):
 
-    ''' 
-    Display 10 random categories and allow selction 
-    '''
+        ''' 
+        Display 10 random categories and allow selection 
+        '''
 
         while True :
 
@@ -103,10 +103,10 @@ class Menu:
             
     def menu_state_4(self, App: object, entry: str):
     
-    ''' 
-    Display product of the category chosen
-    '''
-    
+        ''' 
+        Display product of the category chosen
+        '''
+
         while True :
 
             if self.back :
@@ -132,9 +132,9 @@ class Menu:
 
     def menu_state_5(self, App: object, entry: str) :
     
-    ''' 
-    Display substiute found and allow it saving 
-    '''
+        ''' 
+        Display substiute found and allow it saving 
+        '''
 
         while True :
 
