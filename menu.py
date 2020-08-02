@@ -1,159 +1,121 @@
 import random
 
+
 class Menu:
-
-    def __init__ (self):
-        self.cmd_state_1 = {
-            '1' : 'Installer le programme',
-            '2' : 'Utiliser le programme',
-            '0' : 'Quitter le programme'
+    def __init__(self):
+        self.cmd_select_mode = {
+            "1": "Installer le programme",
+            "2": "Utiliser le programme",
+            "0": "Quitter le programme",
         }
-        self.cmd_state_2 = {
-            '1' : 'Trouver un aliment',
-            '2' : 'Afficher les substitus enregistrés',
-            '0' : 'Retour'
+        self.cmd_select_option = {
+            "1": "Trouver un aliment",
+            "2": "Afficher les substitus enregistrés",
+            "0": "Retour",
         }
-        self.cmd_state_3 = {}
-        self.cmd_state_4 = {}
+        self.cmd_categories = {}
+        self.cmd_products = {}
         self.back = False
-        
-        
-    def menu_state_1(self, App: object):
-    
-        ''' 
-        Selection between installation or use 
-        '''
-    
-        while True :
 
-            for key, element in self.cmd_state_1.items() :
-                print (f'{key} : {element}')
-
-            entry = input('\nEntrer un chiffre pour sélectionner l\'option correspondante : ')
-
-            if entry == '1':
-                App.create_db()
-
-            elif entry == '2':
-                self.menu_state_2(App)
-
-            elif entry == '0':
+    def menu_select_mode(self, app: object):
+        """Selection between installation or use."""
+        while True:
+            for key, element in self.cmd_select_mode.items():
+                print(f"{key} : {element}")
+            entry = input(
+                "\nEntrer un chiffre pour sélectionner l'option correspondante : "
+            )
+            if entry == "1":
+                app.create_db()
+            elif entry == "2":
+                self.menu_select_option(app)
+            elif entry == "0":
                 break
-            
             else:
-                print('\nCommande non reconnu')
+                print("\nCommande non reconnu")
 
-    def menu_state_2(self, App: object):
-    
-        ''' 
-        Selection between product search or substitutes display
-        '''
-    
-        while True :
-
-            print('-'*50)
-            for key, element in self.cmd_state_2.items() :
-                print (f'{key} : {element}')
-
-            entry = input('\nEntrer un chiffre pour sélectionner l\'option correspondante : ')
-
-            if entry == '1' :
-                self.menu_state_3(App)
-                
-            elif entry == '2' :
-                save = App.view_save()
-                print('-'*50+'\nSubstitut(s) enregistré(s) :\n') 
+    def menu_select_option(self, app: object):
+        """Selection between product search or substitutes display."""
+        while True:
+            print("-" * 50)
+            for key, element in self.cmd_select_option.items():
+                print(f"{key} : {element}")
+            entry = input(
+                "\nEntrer un chiffre pour sélectionner l'option correspondante : "
+            )
+            if entry == "1":
+                self.menu_categories(app)
+            elif entry == "2":
+                save = app.view_save()
+                print("-" * 50 + "\nSubstitut(s) enregistré(s) :\n")
                 for x in save:
                     print(x)
-
-            elif entry == '0' :
-                break 
-
-            else :
-                print('\nCommande incorrecte')
-
-    def menu_state_3(self, App: object):
-
-        ''' 
-        Display 10 random categories and allow selection 
-        '''
-
-        while True :
-
-            if self.back :
+            elif entry == "0":
                 break
+            else:
+                print("\nCommande incorrecte")
 
-            else :
-                self.cmd_state_3 = App.view_cat()
-                rand_cat = random.sample(list(self.cmd_state_3), 10)
-                print('-'*50)
-                for x in rand_cat :
-                    print (f'{x} : {self.cmd_state_3[x]}')
-
-                entry = input('\nEntrer un chiffre pour sélectionner la catégorie correspondante : ')
-                
-                if entry in self.cmd_state_3 :
-                    if entry == '0':
-                        break
-                    else :
-                        self.menu_state_4(App, entry)
-
-                else :
-                    print('\nCommande incorrecte')
-            
-    def menu_state_4(self, App: object, entry: str):
-    
-        ''' 
-        Display product of the category chosen
-        '''
-
-        while True :
-
-            if self.back :
+    def menu_categories(self, app: object):
+        """Display 10 random categories and allow selection."""
+        while True:
+            if self.back:
                 break
-
-            else :
-                self.cmd_state_4 = App.view_prod(entry)
-                print('-'*50)
-                for key, element in self.cmd_state_4.items() :
-                    print (f'{key} : {element}')
-
-                entry = input('\nEntrer un chiffre pour sélectionner le produit correspondant : ')
-
-                if entry in self.cmd_state_4 :
-                    if entry == '0':
+            else:
+                self.cmd_categories = app.view_cat()
+                rand_cat = random.sample(list(self.cmd_categories), 10)
+                print("-" * 50)
+                for x in rand_cat:
+                    print(f"{x} : {self.cmd_categories[x]}")
+                entry = input(
+                    "\nEntrer un chiffre pour sélectionner la catégorie correspondante : "
+                )
+                if entry in self.cmd_categories:
+                    if entry == "0":
                         break
-                    else :
-                        self.menu_state_5(App, entry)
-                        
-                        
-                else :
-                    print('\nCommande incorrecte')
+                    else:
+                        self.menu_products(app, entry)
+                else:
+                    print("\nCommande incorrecte")
 
-    def menu_state_5(self, App: object, entry: str) :
-    
-        ''' 
-        Display substiute found and allow it saving 
-        '''
+    def menu_products(self, app: object, entry: str):
+        """Display product of the category chosen."""
+        while True:
+            if self.back:
+                break
+            else:
+                self.cmd_products = app.view_prod(entry)
+                print("-" * 50)
+                for key, element in self.cmd_products.items():
+                    print(f"{key} : {element}")
+                entry = input(
+                    "\nEntrer un chiffre pour sélectionner le produit correspondant : "
+                )
+                if entry in self.cmd_products:
+                    if entry == "0":
+                        break
+                    else:
+                        self.menu_saving(app, entry)
+                else:
+                    print("\nCommande incorrecte")
 
-        while True :
-
-            prod = self.cmd_state_4.get(entry)
-            alt = App.search_alt(prod)
-            sub = App.relevance(alt)
-            print('-'*50)
-            print(f'\nSubstitut trouvé pour le produit {prod} : {sub}')
-            entry = input('\nVoulez vous enregistrer le substitut dans votre liste ? (y/n)')
-
-            if entry == 'y':
-                feedback = App.insert_sub(sub)
+    def menu_saving(self, app: object, entry: str):
+        """Display substiute found and allow it saving."""
+        while True:
+            prod = self.cmd_products.get(entry)
+            alt = app.search_alt(prod)
+            sub = app.relevance(alt)
+            print("-" * 50)
+            print(f"\nSubstitut trouvé pour le produit {prod} : {sub}")
+            entry = input(
+                "\nVoulez vous enregistrer le substitut dans votre liste ? (y/n)"
+            )
+            if entry == "y":
+                feedback = app.insert_sub(sub)
                 print(feedback)
                 self.back = True
                 break
-
-            elif entry == 'n':
+            elif entry == "n":
                 self.back = True
                 break
-
-            else :
-                print('\nCommande incorrecte')
+            else:
+                print("\nCommande incorrecte")

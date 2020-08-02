@@ -1,8 +1,6 @@
-name = 'root'
-password = ''
-db = 'p5'
-size = 500
-location = 'fr'
-
-
-uri = f'mysql+mysqlconnector://{name}:{password}@localhost/{db}?charset=utf8'
+NAME = "root"
+PASSWORD = ""
+DB_NAME = "p5"
+SIZE = 500
+LOCATION = "fr"
+URI = f"mysql+mysqlconnector://{NAME}:{PASSWORD}@localhost/{DB_NAME}?charset=utf8"
