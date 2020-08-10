@@ -37,6 +37,7 @@ class Menu:
     def menu_select_option(self, app: object):
         """Selection between product search or substitutes display."""
         while True:
+            self.back = False
             print("-" * 50)
             for key, element in self.cmd_select_option.items():
                 print(f"{key} : {element}")
