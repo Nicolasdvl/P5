@@ -17,7 +17,7 @@ class Menu:
         self.cmd_products = {}
         self.back = False
 
-    def menu_select_mode(self, app: object):
+    def menu_select_mode(self, app: object) -> None:
         """Selection between installation or use."""
         while True:
             for key, element in self.cmd_select_mode.items():
@@ -34,7 +34,7 @@ class Menu:
             else:
                 print("\nCommande non reconnu")
 
-    def menu_select_option(self, app: object):
+    def menu_select_option(self, app: object) -> None:
         """Selection between product search or substitutes display."""
         while True:
             self.back = False
@@ -56,7 +56,7 @@ class Menu:
             else:
                 print("\nCommande incorrecte")
 
-    def menu_categories(self, app: object):
+    def menu_categories(self, app: object) -> None:
         """Display 10 random categories and allow selection."""
         while True:
             if self.back:
@@ -78,7 +78,7 @@ class Menu:
                 else:
                     print("\nCommande incorrecte")
 
-    def menu_products(self, app: object, entry: str):
+    def menu_products(self, app: object, entry: str) -> None:
         """Display product of the category chosen."""
         while True:
             if self.back:
@@ -99,7 +99,7 @@ class Menu:
                 else:
                     print("\nCommande incorrecte")
 
-    def menu_saving(self, app: object, entry: str):
+    def menu_saving(self, app: object, entry: str) -> None:
         """Display substiute found and allow it saving."""
         while True:
             prod = self.cmd_products.get(entry)

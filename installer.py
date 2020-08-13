@@ -5,7 +5,7 @@ from models.store import Store
 
 
 class Installer:
-    def install(self, data: dict, engine: object):
+    def install(self, data: dict, engine: object) -> None:
         """Insert data in related table and create associations between data."""
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -15,9 +15,7 @@ class Installer:
                 # checking if element is already in table
                 clue = element.get("code")
                 suspect = (
-                    session.query(Product)
-                    .filter(Product.code == clue)
-                    .one_or_none()
+                    session.query(Product).filter(Product.code == clue).one_or_none()
                 )
                 if suspect is None:
                     # insert data in table
@@ -52,9 +50,7 @@ class Installer:
                             session.commit()
                         # insert association between a product and a store
                         store = (
-                            session.query(Store)
-                            .filter(Store.name == element_2)
-                            .first()
+                            session.query(Store).filter(Store.name == element_2).first()
                         )
                         prod = (
                             session.query(Product)

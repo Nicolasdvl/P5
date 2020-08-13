@@ -14,7 +14,7 @@ class App:
     def __init__(self):
         self.engine = create_engine(URI)
 
-    def create_db(self):
+    def create_db(self) -> None:
         """Create database, collect data and insert them."""
         print("creating tables...")
         Base.metadata.create_all(self.engine)
@@ -59,7 +59,7 @@ class App:
         prod["0"] = "retour"
         return prod
 
-    def view_save(self) -> list:
+    def view_save(self) -> dict:
         """Return a list of all substitutes saved."""
         save = {}
         Session = sessionmaker(bind=self.engine)
