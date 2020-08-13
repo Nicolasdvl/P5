@@ -49,8 +49,8 @@ class Menu:
             elif entry == "2":
                 save = app.view_save()
                 print("-" * 50 + "\nSubstitut(s) enregistré(s) :\n")
-                for x in save:
-                    print(x)
+                for prod, sub in save.items():
+                    print(f"Produit {prod} substitué par {sub} ")
             elif entry == "0":
                 break
             else:
@@ -111,7 +111,7 @@ class Menu:
                 "\nVoulez vous enregistrer le substitut dans votre liste ? (y/n)"
             )
             if entry == "y":
-                feedback = app.insert_sub(sub)
+                feedback = app.insert_sub(prod, sub)
                 print(feedback)
                 self.back = True
                 break

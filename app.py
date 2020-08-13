@@ -61,11 +61,11 @@ class App:
 
     def view_save(self) -> list:
         """Return a list of all substitutes saved."""
-        save = []
+        save = {}
         Session = sessionmaker(bind=self.engine)
         session = Session()
         for row in session.query(Save).all():
-            save.append(row.name)
+            save[row.prod_name] = row.sub_name
         return save
 
     def search_alt(self, prod_name: str) -> dict:
@@ -103,13 +103,13 @@ class App:
                 substitute_name = product_name
         return substitute_name
 
-    def insert_sub(self, name: str) -> str:
+    def insert_sub(self, prod: str, sub: str) -> str:
         """Insert a product in the table 'save'."""
         Session = sessionmaker(bind=self.engine)
         session = Session()
-        suspect = session.query(Save).filter(Save.name == name).one_or_none()
+        suspect = session.query(Save).filter(Save.sub_name == sub).one_or_none()
         if suspect is None:
-            add = Save(name=name)
+            add = Save(sub_name=sub, prod_name=prod)
             session.add(add)
             session.commit()
             feedback = "Substitut enregistré"
